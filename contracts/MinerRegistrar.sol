@@ -8,11 +8,11 @@ import "./RepublicToken.sol";
  * TODOS:
  * 1. Break up into smaller contracts, e.g.:
  *    a. Epoch contract
- *    b. Miner list?
- *    c. Miner properties shared with traders? (e.g. public key storage)
+ *    b. DarkNode list?
+ *    c. DarkNode properties shared with traders? (e.g. public key storage)
  * 2. Remove Debug events
  */
-contract MinerRegistrar {
+contract DarkNodeRegistrar {
 
   /** Contracts */
 
@@ -21,7 +21,7 @@ contract MinerRegistrar {
 
   /** Data */
 
-  struct Miner {
+  struct DarkNode {
     bytes publicKey;
     address owner;
     uint256 bond;
@@ -43,16 +43,16 @@ contract MinerRegistrar {
   uint256 epochInterval;
   uint256 minimumBond;
 
-  // Map from Republic IDs to miner structs
-  mapping(bytes20 => Miner) private miners;
+  // Map from Republic IDs to DarkNode structs
+  mapping(bytes20 => DarkNode) private DarkNodes;
 
-  // Map from ethereum public addresses to miner IDs
+  // Map from ethereum public addresses to DarkNode IDs
   mapping(address => bytes20) private addressIDs;
 
   // Layout:
   // [0, deregistered..., toDeregister..., registered..., toRegister...]
   // Since an index of 0 could be either uninitialized or 0, the first element is reserved
-  bytes20[] minerList;
+  bytes20[] DarkNodeList;
 
   uint256 deregisteredCount;
   uint256 toDeregisterCount;
@@ -61,10 +61,10 @@ contract MinerRegistrar {
 
   /** Events */
 
-  event MinerRegistered(bytes20 minerID, uint256 bond);
-  event MinerBondUpdated(bytes20 minerID, uint256 newBond);
-  event MinerDeregistered(bytes20 minerID);
-  event BondRefunded(bytes20 minerID, uint256 amount);
+  event DarkNodeRegistered(bytes20 DarkNodeID, uint256 bond);
+  event DarkNodeBondUpdated(bytes20 DarkNodeID, uint256 newBond);
+  event DarkNodeDeregistered(bytes20 DarkNodeID);
+  event BondRefunded(bytes20 DarkNodeID, uint256 amount);
   event Debug(string message);
   event DebugInt(uint256 num);
   event NextEpoch();
@@ -83,77 +83,77 @@ contract MinerRegistrar {
     return toDeregisterOffset() + toDeregisterCount;
   }
 
-  function isStayingRegistered(bytes20 _minerID) private view returns (bool) {
-    uint256 index = miners[_minerID].index;
+  function isStayingRegistered(bytes20 _DarkNodeID) private view returns (bool) {
+    uint256 index = DarkNodes[_DarkNodeID].index;
     return index >= stayingRegisteredOffset() && index < toRegisterOffset();
   }
 
-  function canRegister(bytes20 _minerID) private view returns (bool) {
+  function canRegister(bytes20 _DarkNodeID) private view returns (bool) {
     // TODO: Can register if in toDeregister
-    return !isRegistered(_minerID) && !isPendingRegistration(_minerID);
+    return !isRegistered(_DarkNodeID) && !isPendingRegistration(_DarkNodeID);
   }
 
-  function canDeregister(bytes20 _minerID) private view returns (bool) {
-    return isStayingRegistered(_minerID) || isPendingRegistration(_minerID);
+  function canDeregister(bytes20 _DarkNodeID) private view returns (bool) {
+    return isStayingRegistered(_DarkNodeID) || isPendingRegistration(_DarkNodeID);
   }
 
   /**
-   * @notice A private function that updates a miner's bond that is pending
+   * @notice A private function that updates a DarkNode's bond that is pending
    * withdrawal.
    *
-   * @param _minerID The ID of the miner that is being updated.
+   * @param _DarkNodeID The ID of the DarkNode that is being updated.
    * @param _amount The bond update amount.
    */
-  function updateBondWithdrawal(bytes20 _minerID, uint256 _amount) private {
+  function updateBondWithdrawal(bytes20 _DarkNodeID, uint256 _amount) private {
 
-    miners[_minerID].bond -= _amount;
+    DarkNodes[_DarkNodeID].bond -= _amount;
 
-    if (miners[_minerID].bondPendingWithdrawal > 0 && miners[_minerID].bondWithdrawalTime < currentEpoch.time) {
+    if (DarkNodes[_DarkNodeID].bondPendingWithdrawal > 0 && DarkNodes[_DarkNodeID].bondWithdrawalTime < currentEpoch.time) {
       // Can withdraw previous bond
-      uint256 toWithdraw = miners[_minerID].bondPendingWithdrawal;
+      uint256 toWithdraw = DarkNodes[_DarkNodeID].bondPendingWithdrawal;
 
       // Store new amount and time
-      miners[_minerID].bondPendingWithdrawal = _amount;
-      miners[_minerID].bondWithdrawalTime = now;
+      DarkNodes[_DarkNodeID].bondPendingWithdrawal = _amount;
+      DarkNodes[_DarkNodeID].bondWithdrawalTime = now;
 
       // Transfer Ren (ERC20 token)
       // TODO: Should this be moved to withdrawBond?
       bool success = ren.transfer(msg.sender, toWithdraw);
       require(success);
 
-      BondRefunded(_minerID, toWithdraw);
+      BondRefunded(_DarkNodeID, toWithdraw);
     } else {
       // Can't withdraw any bond
-      miners[_minerID].bondPendingWithdrawal += _amount;
-      miners[_minerID].bondWithdrawalTime = now;
+      DarkNodes[_DarkNodeID].bondPendingWithdrawal += _amount;
+      DarkNodes[_DarkNodeID].bondWithdrawalTime = now;
     }
   }
 
   /** Public functions */
 
   /** 
-   * @notice The MinerRegistrar constructor.
+   * @notice The DarkNodeRegistrar constructor.
    *
    * @param _renAddress The address of the Republic Token contract.
    * @param _epochInterval The amount of time between epochs, in seconds.
    * @param _minimumBond The minimum bond amount that can be submitted by a
    *                     trader.
    */
-  function MinerRegistrar(address _renAddress, uint256 _epochInterval, uint256 _minimumBond) public {
+  function DarkNodeRegistrar(address _renAddress, uint256 _epochInterval, uint256 _minimumBond) public {
     ren = RepublicToken(_renAddress);
     epochInterval = _epochInterval;
     minimumBond = _minimumBond;
-    minerList.push(0x0);
+    DarkNodeList.push(0x0);
     checkEpoch();
   }
 
-  function isRegistered(bytes20 _minerID) public view returns (bool) {
-    uint256 index = miners[_minerID].index;
+  function isRegistered(bytes20 _DarkNodeID) public view returns (bool) {
+    uint256 index = DarkNodes[_DarkNodeID].index;
     return index >= toDeregisterOffset() && index < toRegisterOffset();
   }
 
-  function isPendingRegistration(bytes20 _minerID) public view returns (bool) {
-    uint256 index = miners[_minerID].index;
+  function isPendingRegistration(bytes20 _DarkNodeID) public view returns (bool) {
+    uint256 index = DarkNodes[_DarkNodeID].index;
     return index >= toRegisterOffset() && index < (toRegisterOffset() + toRegisterCount);
   }
   
@@ -171,9 +171,9 @@ contract MinerRegistrar {
         blockhash: block.blockhash(block.number - 1)
       });
 
-      // TODO: Would zeroing deregistered miners return gas?
+      // TODO: Would zeroing deregistered DarkNodes return gas?
       for (uint256 i = deregisteredCount; i < deregisteredCount + toDeregisterCount; i++) {
-        delete minerList[i];
+        delete DarkNodeList[i];
       }
 
       // Update counts
@@ -191,38 +191,38 @@ contract MinerRegistrar {
   }
 
   /** 
-   * @notice Register a miner and transfer the bond to this contract. The
-   * caller must provide the public key of the miner that will be registered
+   * @notice Register a DarkNode and transfer the bond to this contract. The
+   * caller must provide the public key of the DarkNode that will be registered
    * and a signature that proves the caller has access to the associated
    * private key. The bond must be provided in REN, as an allowance. The entire
    * allowance is transferred and used as the bond.
    *
-   * @param _publicKey The public key of the miner. It is stored to allow other
-   *                   miners and traders to encrypt messages to the miner.
+   * @param _publicKey The public key of the DarkNode. It is stored to allow other
+   *                   DarkNodes and traders to encrypt messages to the DarkNode.
    * @param _signature The Republic ID, generated from the public key and signed
    *                   by the associated private key. It is used as a proof that
-   *                   the miner owns the submitted public key.
+   *                   the DarkNode owns the submitted public key.
    */
   function register(bytes _publicKey, bytes _signature) payable public {
 
     // an outside entity will be calling this after each epochInterval has passed
-    // if that has not happened yet, the next miner to register will trigger the update instead
+    // if that has not happened yet, the next DarkNode to register will trigger the update instead
     // checkEpoch(); // <1k gas if no update needed, >40k gas if update needed
 
-    address minerAddress = Utils.ethereumAddressFromPublicKey(_publicKey);
-    bytes20 minerID = Utils.republicIDFromPublicKey(_publicKey);
+    address DarkNodeAddress = Utils.ethereumAddressFromPublicKey(_publicKey);
+    bytes20 DarkNodeID = Utils.republicIDFromPublicKey(_publicKey);
 
     // TODO: Check a signature instead
-    // Verify that the miner has provided the correct public key
-    require(msg.sender == minerAddress);
+    // Verify that the DarkNode has provided the correct public key
+    require(msg.sender == DarkNodeAddress);
 
-    // Miner should not be already registered or awaiting registration
-    require(canRegister(minerID));
+    // DarkNode should not be already registered or awaiting registration
+    require(canRegister(DarkNodeID));
 
     // Set bond to be allowance plus any remaining bond from previous registration
     uint256 allowance = ren.allowance(msg.sender, this);
     // TODO: Use safe maths
-    uint256 bond = allowance + miners[minerID].bondPendingWithdrawal;
+    uint256 bond = allowance + DarkNodes[DarkNodeID].bondPendingWithdrawal;
 
     // Bond should be greater than minumum
     require (bond > minimumBond);
@@ -232,13 +232,13 @@ contract MinerRegistrar {
     require(success);
 
     // Store public key and bond
-    uint256 index = minerList.push(minerID) - 1;
+    uint256 index = DarkNodeList.push(DarkNodeID) - 1;
 
     toRegisterCount += 1;
 
-    bytes32 seed = keccak256(now, block.blockhash(block.number - 1), minerID);
+    bytes32 seed = keccak256(now, block.blockhash(block.number - 1), DarkNodeID);
 
-    var miner = Miner({
+    DarkNode memory darkNode = DarkNode({
       publicKey: _publicKey,
       owner: msg.sender,
       bond: bond,
@@ -248,31 +248,31 @@ contract MinerRegistrar {
       bondWithdrawalTime: 0
     });
 
-    miners[minerID] = miner;
+    DarkNodes[DarkNodeID] = darkNode;
 
-    addressIDs[minerAddress] = minerID;
+    addressIDs[DarkNodeAddress] = DarkNodeID;
 
     // Emit event to logs
-    MinerRegistered(minerID, bond);
+    DarkNodeRegistered(DarkNodeID, bond);
   }
 
   /**
-   * @notice Increase bond or decrease a miners's bond
+   * @notice Increase bond or decrease a DarkNodes's bond
    *
-   * @param _minerID The Republic ID of the miner
-   * @param _newBond The new bond to be set for the miner, greater than or less than the current bond
+   * @param _DarkNodeID The Republic ID of the DarkNode
+   * @param _newBond The new bond to be set for the DarkNode, greater than or less than the current bond
    */
-  function updateBond(bytes20 _minerID, uint256 _newBond) payable public {
-    // Ensure miner is already registered
-    require(isPendingRegistration(_minerID) || isStayingRegistered(_minerID));
+  function updateBond(bytes20 _DarkNodeID, uint256 _newBond) payable public {
+    // Ensure DarkNode is already registered
+    require(isPendingRegistration(_DarkNodeID) || isStayingRegistered(_DarkNodeID));
     
     // Only allow owner to modify bond
-    address owner = Utils.ethereumAddressFromPublicKey(miners[_minerID].publicKey);
+    address owner = Utils.ethereumAddressFromPublicKey(DarkNodes[_DarkNodeID].publicKey);
     require(owner == msg.sender);
 
     // Set new bond
     require(_newBond > 0);
-    uint256 oldBond = miners[_minerID].bond;
+    uint256 oldBond = DarkNodes[_DarkNodeID].bond;
     if (_newBond == oldBond) {
       return;
     }
@@ -291,7 +291,7 @@ contract MinerRegistrar {
       bool success = ren.transferFrom(msg.sender, this, toAdd);
       require(success);
 
-      miners[_minerID].bond = _newBond;
+      DarkNodes[_DarkNodeID].bond = _newBond;
 
 
     } else if (_newBond < oldBond) {
@@ -302,34 +302,34 @@ contract MinerRegistrar {
       // Sanity check
       assert(toRefund < oldBond);
 
-      updateBondWithdrawal(_minerID, toRefund);
+      updateBondWithdrawal(_DarkNodeID, toRefund);
     }
 
     // Emit event to logs
-    MinerBondUpdated(_minerID, _newBond);
+    DarkNodeBondUpdated(_DarkNodeID, _newBond);
   }
 
   /** 
-  * @notice Deregister a miner and refund their bond.
+  * @notice Deregister a DarkNode and refund their bond.
   *
-  * @param _minerID The Republic ID of the miner.
+  * @param _DarkNodeID The Republic ID of the DarkNode.
   */
-  function deregister(bytes20 _minerID) public {
+  function deregister(bytes20 _DarkNodeID) public {
 
     // Check that they can deregister
-    require(canDeregister(_minerID));
+    require(canDeregister(_DarkNodeID));
 
-    // Check that the msg.sender owns the miner
-    require(miners[_minerID].owner == msg.sender);
+    // Check that the msg.sender owns the DarkNode
+    require(DarkNodes[_DarkNodeID].owner == msg.sender);
 
-    // Swap miners around
+    // Swap DarkNodes around
     uint256 destinationIndex;
-    uint256 currentIndex = miners[_minerID].index;
+    uint256 currentIndex = DarkNodes[_DarkNodeID].index;
 
     bool decreaseLength = false;
 
-    // TODO: If miner is in toRegister, put at end of toRegister and delete, instead
-    if (isPendingRegistration(_minerID)) {
+    // TODO: If DarkNode is in toRegister, put at end of toRegister and delete, instead
+    if (isPendingRegistration(_DarkNodeID)) {
       // still in toRegister
 
       // last in toRegister
@@ -352,34 +352,34 @@ contract MinerRegistrar {
       toDeregisterCount += 1;
     }
 
-    // Swap two miners in minerList
-    minerList[currentIndex] = minerList[destinationIndex];
-    minerList[destinationIndex] = _minerID;
+    // Swap two DarkNodes in DarkNodeList
+    DarkNodeList[currentIndex] = DarkNodeList[destinationIndex];
+    DarkNodeList[destinationIndex] = _DarkNodeID;
     // Update their indexes
-    miners[minerList[currentIndex]].index = currentIndex;
-    miners[minerList[destinationIndex]].index = destinationIndex;
+    DarkNodes[DarkNodeList[currentIndex]].index = currentIndex;
+    DarkNodes[DarkNodeList[destinationIndex]].index = destinationIndex;
 
     if (decreaseLength) {
-      delete minerList[destinationIndex]; // Never registered, so safe to delete
-      minerList.length = minerList.length - 1;
+      delete DarkNodeList[destinationIndex]; // Never registered, so safe to delete
+      DarkNodeList.length = DarkNodeList.length - 1;
     }
 
-    updateBondWithdrawal(_minerID, miners[_minerID].bond);
+    updateBondWithdrawal(_DarkNodeID, DarkNodes[_DarkNodeID].bond);
 
     // Emit event to logs
-    MinerDeregistered(_minerID);
+    DarkNodeDeregistered(_DarkNodeID);
   }
 
   /**
-  * @notice Withdraw the bond of a miner. This is the latter of two functions a
-  * miner must call to retrieve their bond. The first call is to decrease their
+  * @notice Withdraw the bond of a DarkNode. This is the latter of two functions a
+  * DarkNode must call to retrieve their bond. The first call is to decrease their
   * bond or deregister. This stages an amount of bond to be withdrawn. This 
   * function then allows them to actually make the withdrawal.
   *
-  * @param _minerID The Republic ID of the miner.
+  * @param _DarkNodeID The Republic ID of the DarkNode.
   */
-  function withdrawBond(bytes20 _minerID) public {
-    updateBondWithdrawal(_minerID, 0);
+  function withdrawBond(bytes20 _DarkNodeID) public {
+    updateBondWithdrawal(_DarkNodeID, 0);
   }
 
 
@@ -393,23 +393,23 @@ contract MinerRegistrar {
     return currentEpoch.blockhash;
   }
 
-  function getCurrentMiners() public view returns (bytes20[]) {
+  function getCurrentDarkNodes() public view returns (bytes20[]) {
 
     var registeredStart = toDeregisterOffset();
     var registeredEnd = registeredStart + toDeregisterCount + stayingRegisteredCount;
 
-    bytes20[] memory currentMiners = new bytes20[](toDeregisterCount + stayingRegisteredCount);
+    bytes20[] memory currentDarkNodes = new bytes20[](toDeregisterCount + stayingRegisteredCount);
 
     for (uint256 i = 0; i < registeredEnd - registeredStart; i++) {
-      currentMiners[i] = minerList[i + registeredStart];
+      currentDarkNodes[i] = DarkNodeList[i + registeredStart];
     }
-    return currentMiners;
+    return currentDarkNodes;
   }
 
   // TODO: Used for debugging only?, remove before mainnet
-  function getAllMiners() public view returns (bytes20[]) {
+  function getAllDarkNodes() public view returns (bytes20[]) {
     // Note: Returns 0x0 at starting position
-    return minerList;
+    return DarkNodeList;
   }
 
   function getMNetworkCount() public view returns (uint256) {
@@ -424,42 +424,42 @@ contract MinerRegistrar {
     return log + (log % 2);
   }
 
-  function getCurrentMinerCount() public view returns (uint256) {
+  function getCurrentDarkNodeCount() public view returns (uint256) {
     return (toDeregisterCount + stayingRegisteredCount);
   }
 
-  function getNextMinerCount() public view returns (uint256) {
+  function getNextDarkNodeCount() public view returns (uint256) {
     return (toDeregisterCount + stayingRegisteredCount) - toDeregisterCount + toRegisterCount;
   }
 
-  function getBond(bytes20 _minerID) public view returns (uint256) {
+  function getBond(bytes20 _DarkNodeID) public view returns (uint256) {
     // Check if they have bond pending to be withdrawn but still valid
-    if (miners[_minerID].bondWithdrawalTime >= currentEpoch.time) {
-      return miners[_minerID].bond + miners[_minerID].bondPendingWithdrawal;
+    if (DarkNodes[_DarkNodeID].bondWithdrawalTime >= currentEpoch.time) {
+      return DarkNodes[_DarkNodeID].bond + DarkNodes[_DarkNodeID].bondPendingWithdrawal;
     } else {
-      return miners[_minerID].bond;
+      return DarkNodes[_DarkNodeID].bond;
     }
   }
 
-  function getSeed(bytes20 _minerID) public view returns (bytes32) {
-    return miners[_minerID].seed;
+  function getSeed(bytes20 _DarkNodeID) public view returns (bytes32) {
+    return DarkNodes[_DarkNodeID].seed;
   }
   
   // Allow anyone to see a Republic ID's public key
-  function getPublicKey(bytes20 _minerID) public view returns (bytes) {
-    return miners[_minerID].publicKey;
+  function getPublicKey(bytes20 _DarkNodeID) public view returns (bytes) {
+    return DarkNodes[_DarkNodeID].publicKey;
   }
 
-  function getOwner(bytes20 _minerID) public view returns (address) {
-    return Utils.ethereumAddressFromPublicKey(miners[_minerID].publicKey);
+  function getOwner(bytes20 _DarkNodeID) public view returns (address) {
+    return Utils.ethereumAddressFromPublicKey(DarkNodes[_DarkNodeID].publicKey);
   }
 
-  function getMinerID(address _addr) public view returns (bytes20) {
+  function getDarkNodeID(address _addr) public view returns (bytes20) {
     return addressIDs[_addr];
   }
 
-  function getBondPendingWithdrawal(bytes20 _minerID) public view returns (uint256) {
-    return miners[_minerID].bondPendingWithdrawal;
+  function getBondPendingWithdrawal(bytes20 _DarkNodeID) public view returns (uint256) {
+    return DarkNodes[_DarkNodeID].bondPendingWithdrawal;
   }
 
 }
