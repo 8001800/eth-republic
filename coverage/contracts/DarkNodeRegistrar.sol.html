@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/DarkNodeRegistrar.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> DarkNodeRegistrar.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">16.22% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>6/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.17% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>1/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">11.76% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">14.63% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>6/41</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1128×</span>
+<span class="cline-any cline-yes">1128×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity ^0.4.18;
+&nbsp;
+import "./RepublicToken.sol";
+import "./Utils.sol";
+import "./LinkedList.sol";
+&nbsp;
+/**
+ * Active WIP
+ * TODOS:
+ * 1. Break up into smaller contracts, e.g.:
+ *    a. Epoch contract
+ *    b. DarkNode list?
+ *    c. DarkNode properties shared with traders? (e.g. public key storage)
+ * 2. Remove Debug events
+ */
+contract DarkNodeRegistrar {
+  using Bytes20List for Bytes20List.List;
+&nbsp;
+  struct Epoch {
+    bytes32 blockhash;
+    uint256 timestamp;
+  }
+&nbsp;
+  /**
+   * @notice DarkNodes are stored in the darkNodes. The owner is the address that
+   * registered the darkNode, the bond is the amount of REN that was transferred
+   * during registration, and the public key is the encryption key that should
+   * be used when sending sensitive information to the darkNode. The commitment
+   * and the 
+   */
+  struct DarkNode {
+    address owner;
+    uint256 bond;
+    bytes publicKey;  
+    bytes32 commitment;
+    uint256 registeredPosition;
+    uint256 registeredAt;
+    uint256 deregisteredAt;
+  }
+&nbsp;
+  // Republic ERC20 token contract used to transfer bonds.
+  RepublicToken ren;
+&nbsp;
+  // Registry data.
+  mapping(bytes20 =&gt; DarkNode) public darkNodes;
+  Bytes20List.List private darkNodeList;
+&nbsp;
+  // Minimum bond to be considered registered.
+  uint256 public minimumBond;
+&nbsp;
+  // The current epoch and the minimum time interval until the next epoch.
+  Epoch public currentEpoch;
+  uint256 public minimumEpochInterval;
+&nbsp;
+  // Refunable amounts of REN.
+  mapping(address =&gt; uint256) public pendingRefunds;
+&nbsp;
+  /**
+   * @notice Emitted when a darkNode is registered.
+   * 
+   * @param _darkNodeID The darkNode ID that was registered.
+   * @param _bond The amount of REN that was transferred as bond.
+   */
+  event DarkNodeRegistered(bytes20 _darkNodeID, uint256 _bond);
+&nbsp;
+  /**
+   * @notice Emitted when a darkNode is deregistered.
+   * 
+   * @param _darkNodeID The darkNode ID that was deregistered.
+   */
+  event DarkNodeDeregistered(bytes20 _darkNodeID);
+&nbsp;
+  /**
+   * @notice Emitted when a refund has been made.
+   *
+   * @param _owner The address that was refunded.
+   * @param _amount The amount of REN that was refunded.
+   */
+  event OwnerRefunded(address _owner, uint256 _amount);
+&nbsp;
+  /**
+   * @notice Only allow the owner that registered the darkNode to pass.
+   */
+<span class="fstat-no" title="function not covered" >  modifier onlyOwner(bytes20 _darkNodeID) </span>{
+<span class="cstat-no" title="statement not covered" >    if (darkNodes[_darkNodeID].owner == msg.sender) {</span>
+      _;
+    }
+  }
+&nbsp;
+  /**
+   * @notice Only allow registerd darkNodes to pass.
+   */
+<span class="fstat-no" title="function not covered" >  modifier onlyRegistered(bytes20 _darkNodeID) </span>{
+<span class="cstat-no" title="statement not covered" >    if (isDarkNodeRegistered(_darkNodeID)) {</span>
+      _;
+    }
+  }
+&nbsp;
+  /**
+   * @notice Only allow unregisterd darkNodes to pass.
+   */
+<span class="fstat-no" title="function not covered" >  modifier onlyUnregistered(bytes20 _darkNodeID) </span>{
+<span class="cstat-no" title="statement not covered" >    if (!isDarkNodeRegistered(_darkNodeID)) {</span>
+      _;
+    }
+  }
+&nbsp;
+  /**
+   * @notice Only allow darkNodes that have been registered for a longer enough
+   * time to pass.
+   */
+<span class="fstat-no" title="function not covered" >  modifier onlyRefundable(bytes20 _darkNodeID) </span>{
+<span class="cstat-no" title="statement not covered" >    if (darkNodes[_darkNodeID].registeredAt != 0 &amp;&amp; darkNodes[_darkNodeID].registeredAt &lt;= currentEpoch.timestamp) {</span>
+      _;
+    }
+  }
+&nbsp;
+  /** 
+   * @notice The DarkNodeRegistrar constructor.
+   *
+   * @param _renAddress The address of the Republic Token contract.
+   * @param _minimumBond The minimum bond amount that can be submitted by a
+   *                     darkNode.
+   * @param _minimumEpochInterval The minimum amount of time between epochs.
+   */
+  function DarkNodeRegistrar(address _renAddress, uint256 _minimumBond, uint256 _minimumEpochInterval) public {
+    ren = RepublicToken(_renAddress);
+    minimumBond = _minimumBond;
+    minimumEpochInterval = _minimumEpochInterval;
+    currentEpoch = Epoch({
+      blockhash: block.blockhash(block.number - 1),
+      timestamp: now
+    });
+  }
+&nbsp;
+  /** 
+   * @notice Register a darkNode and transfer the bond to this contract. The
+   * caller must provide the public key and commitment hash of the darkNode that
+   * will be registered. The bond must be provided in REN as an allowance and
+   * the entire allowance will be used.
+   *
+   * @param _darkNodeID The darkNode ID that will be registered.
+   * @param _publicKey The public key of the darkNode. It is stored to allow other
+   *                   darkNodes and traders to encrypt messages to the trader.
+   */
+<span class="fstat-no" title="function not covered" >  function register(bytes20 _darkNodeID, bytes _publicKey) public onlyUnregistered(_darkNodeID) </span>{
+    // REN allowance is used as the bond.
+<span class="cstat-no" title="statement not covered" >    uint256 bond = ren.allowance(msg.sender, this)</span>;
+<span class="cstat-no" title="statement not covered" >    require(bond &gt; minimumBond)</span>;
+&nbsp;
+    // Transfer the bond to this contract.
+<span class="cstat-no" title="statement not covered" >    require(ren.transferFrom(msg.sender, this, bond))</span>;
+&nbsp;
+    // Store this trader in the darkNodes.
+<span class="cstat-no" title="statement not covered" >    darkNodes[_darkNodeID] = DarkNode({</span>
+      owner: msg.sender,
+      bond: bond,
+      publicKey: _publicKey,
+      commitment: keccak256(block.blockhash(block.number - 1), _darkNodeID),
+      registeredAt: currentEpoch.timestamp + minimumEpochInterval,
+      deregisteredAt: 0,
+      registeredPosition: 0
+    });
+&nbsp;
+    // Emit an event.
+<span class="cstat-no" title="statement not covered" >    DarkNodeRegistered(_darkNodeID, bond)</span>;
+  }
+&nbsp;
+  /** 
+   * @notice Deregister a darkNode and clear their bond for refunding. Only the
+   * owner of a darkNode can deregister the darkNode.
+   *
+   * @param _darkNodeID The ID of the darkNode that will be deregistered. The caller
+   *                 must be the owner of this darkNode.
+   */
+<span class="fstat-no" title="function not covered" >  function deregister(bytes20 _darkNodeID) public onlyOwner(_darkNodeID) onlyRegistered(_darkNodeID) onlyRefundable(_darkNodeID) </span>{
+    // Setup a refund for the owner.
+<span class="cstat-no" title="statement not covered" >    pendingRefunds[msg.sender] += darkNodes[_darkNodeID].bond</span>;
+&nbsp;
+    // Zero the darkNode from the darkNodes.
+<span class="cstat-no" title="statement not covered" >    darkNodes[_darkNodeID].deregisteredAt = currentEpoch.timestamp + minimumEpochInterval</span>;
+&nbsp;
+    // Emit an event.
+<span class="cstat-no" title="statement not covered" >    DarkNodeDeregistered(_darkNodeID)</span>;
+  }
+&nbsp;
+  /** 
+   * @notice Refund all REN that has been cleared for refunding. Bonds are
+   * cleared for refunding when the respective trader is deregistered.
+   */
+<span class="fstat-no" title="function not covered" >  function refund() public </span>{
+    // Ensure that the refund amount is greater than zero.
+<span class="cstat-no" title="statement not covered" >    uint amount = pendingRefunds[msg.sender]</span>;
+<span class="cstat-no" title="statement not covered" >    require(amount &gt; 0)</span>;
+&nbsp;
+    // Refund the owner by transferring REN.
+<span class="cstat-no" title="statement not covered" >    pendingRefunds[msg.sender] = 0</span>;
+<span class="cstat-no" title="statement not covered" >    require(ren.transfer(msg.sender, amount))</span>;
+&nbsp;
+    // Emit an event.
+<span class="cstat-no" title="statement not covered" >    OwnerRefunded(msg.sender, amount)</span>;
+  }
+  
+  /**
+   * @notice Progress the epoch if it is possible and necessary to do so. This
+   * captures the current timestamp and current blockhash and overrides the
+   * current epoch.
+   */
+  function epoch() public {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (now &gt; currentEpoch.timestamp + minimumEpochInterval) {
+      currentEpoch = Epoch({
+        blockhash: block.blockhash(block.number - 1),
+        timestamp: currentEpoch.timestamp + minimumEpochInterval
+      });
+    }
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getDarkNode(bytes20 _darkNodeID) public view returns (DarkNode) </span>{
+<span class="cstat-no" title="statement not covered" >    return darkNodes[_darkNodeID];</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getOwner(bytes20 _darkNodeID) public view returns (address) </span>{
+<span class="cstat-no" title="statement not covered" >    return darkNodes[_darkNodeID].owner;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getBond(bytes20 _darkNodeID) public view returns (uint256) </span>{
+<span class="cstat-no" title="statement not covered" >    return darkNodes[_darkNodeID].bond;</span>
+  }
+ 
+<span class="fstat-no" title="function not covered" >  function getPublicKey(bytes20 _darkNodeID) public view returns (bytes) </span>{
+<span class="cstat-no" title="statement not covered" >    return darkNodes[_darkNodeID].publicKey;</span>
+  }
+ 
+<span class="fstat-no" title="function not covered" >  function getCommitment(bytes20 _darkNodeID) public view returns (bytes32) </span>{
+<span class="cstat-no" title="statement not covered" >    return darkNodes[_darkNodeID].commitment;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getCurrentEpoch() public view returns (Epoch) </span>{
+<span class="cstat-no" title="statement not covered" >    return currentEpoch;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getXingOverlay() public view returns (bytes20[]) </span>{
+<span class="cstat-no" title="statement not covered" >    return new bytes20[](0);</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function isDarkNodeRegistered(bytes20 _darkNodeID) public view returns (bool) </span>{
+<span class="cstat-no" title="statement not covered" >    if (darkNodes[_darkNodeID].registeredAt == 0) {</span>
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (darkNodes[_darkNodeID].registeredAt != 0 &amp;&amp; darkNodes[_darkNodeID].registeredAt &gt; currentEpoch.timestamp) {</span>
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (darkNodes[_darkNodeID].deregisteredAt != 0 &amp;&amp; darkNodes[_darkNodeID].deregisteredAt &lt;= currentEpoch.timestamp) {</span>
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return true;</span>
+  }
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Feb 16 2018 14:03:19 GMT+1100 (AEDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

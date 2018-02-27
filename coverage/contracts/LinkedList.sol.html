@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/LinkedList.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> LinkedList.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/25</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/27</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity ^0.4.18;
+&nbsp;
+library Bytes20List {
+&nbsp;
+  /*
+   * @notice Circular doubly linked list with a permanent NULL node (0x0)
+   * NULL.next is the head
+   * NULL.previous is the tail
+   */
+  bytes20 private constant NULL = 0x0;
+&nbsp;
+  /**
+   * @notice A node points to the node before it and the node after it
+   * If node.previous = NULL, then the node is the head of the list
+   * If node.next = NULL, then the node is the tail of the list
+   */
+  struct Node {
+    bool inList;
+    bytes20 previous;
+    bytes20 next;
+  }
+  
+  /**
+   * @notice The Linked List is a mapping from bytes20s to nodes
+   */
+  struct List {
+      mapping (bytes20 =&gt; Node) list;
+  }
+&nbsp;
+  /**
+   * @notice Requires that the node is in the list
+   * @param self The list being called on
+   * @param node The node being checked
+   */
+<span class="fstat-no" title="function not covered" >  modifier inList(List storage self, bytes20 node) </span>{
+<span class="cstat-no" title="statement not covered" >    if (self.list[node].inList) {</span>
+      _;
+    }
+  }
+&nbsp;
+  /**
+   * @notice Requires that the node is NOT in the list
+   * @param self The list being called on
+   * @param node The node being checked
+   */
+<span class="fstat-no" title="function not covered" >  modifier notInList(List storage self, bytes20 node) </span>{
+<span class="cstat-no" title="statement not covered" >    if (!self.list[node].inList) {</span>
+      _;
+    }
+  }
+&nbsp;
+  /**
+   * @notice Returns the head of the doubly linked list
+   * @param self The list being called on
+   */
+<span class="fstat-no" title="function not covered" >  function head(List storage self) internal view returns (bytes20) </span>{
+<span class="cstat-no" title="statement not covered" >    return self.list[NULL].next;</span>
+  }
+&nbsp;
+  /**
+   * @notice Returns the tail of the doubly linked list
+   * @param self The list being called on
+   */
+<span class="fstat-no" title="function not covered" >  function tail(List storage self) internal view returns (bytes20) </span>{
+<span class="cstat-no" title="statement not covered" >    return self.list[NULL].previous;</span>
+  }
+&nbsp;
+  /**
+   * @notice Insert a new node before an existing target node
+   * @param self The list being called on
+   * @param target The existing node in the list
+   * @param newNode The next node to insert before the target
+   */
+<span class="fstat-no" title="function not covered" >  function insertBefore(List storage self, bytes20 target, bytes20 newNode) internal notInList(self, newNode) </span>{
+    // May be NULL
+<span class="cstat-no" title="statement not covered" >    bytes20 previous = self.list[target].previous</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    self.list[newNode].next = target</span>;
+<span class="cstat-no" title="statement not covered" >    self.list[newNode].previous = previous</span>;
+<span class="cstat-no" title="statement not covered" >    self.list[target].previous = newNode</span>;
+<span class="cstat-no" title="statement not covered" >    self.list[previous].next = newNode</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    self.list[newNode].inList = true</span>;
+  }
+&nbsp;
+  /**
+   * @notice Insert a new node after an existing target node
+   * @param self The list being called on
+   * @param target The existing node in the list
+   * @param newNode The next node to insert after the target
+   */
+<span class="fstat-no" title="function not covered" >  function insertAfter(List storage self, bytes20 target, bytes20 newNode) internal notInList(self, newNode) </span>{
+    // May be NULL
+<span class="cstat-no" title="statement not covered" >    bytes20 next = self.list[target].next</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    self.list[newNode].previous = target</span>;
+<span class="cstat-no" title="statement not covered" >    self.list[newNode].next = next</span>;
+<span class="cstat-no" title="statement not covered" >    self.list[target].next = newNode</span>;
+<span class="cstat-no" title="statement not covered" >    self.list[next].previous = newNode</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    self.list[newNode].inList = true</span>;
+  }
+  
+  /**
+   * @notice Delete a node
+   * @param self The list being called on
+   * @param node The existing node in the list to be removed
+   */
+<span class="fstat-no" title="function not covered" >  function remove(List storage self, bytes20 node) internal inList(self, node) </span>{
+<span class="cstat-no" title="statement not covered" >    if (node == NULL) {</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    bytes20 previous = self.list[node].previous</span>;
+<span class="cstat-no" title="statement not covered" >    bytes20 next = self.list[node].next</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    self.list[previous].next = next</span>;
+<span class="cstat-no" title="statement not covered" >    self.list[next].previous = previous</span>;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    self.list[node].inList = false</span>; // Does `delete` do this already?
+    delete self.list[node];
+  }
+&nbsp;
+  /**
+   * @notice Place a node at the start of the list
+   * @param self The list being called on
+   * @param newNode The node to insert at the start of the list
+   */
+<span class="fstat-no" title="function not covered" >  function prepend(List storage self, bytes20 newNode) internal notInList(self, newNode) </span>{
+<span class="cstat-no" title="statement not covered" >    insertBefore(self, head(self), newNode)</span>;
+  }
+&nbsp;
+  /**
+   * @notice Place a node at the end of the list
+   * @param self The list being called on
+   * @param newNode The node to insert at the end of the list
+   */
+<span class="fstat-no" title="function not covered" >  function append(List storage self, bytes20 newNode) internal notInList(self, newNode) </span>{
+<span class="cstat-no" title="statement not covered" >    insertAfter(self, tail(self), newNode)</span>;
+  }
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Feb 16 2018 14:03:19 GMT+1100 (AEDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

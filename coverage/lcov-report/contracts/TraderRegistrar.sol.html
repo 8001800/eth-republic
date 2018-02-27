@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts/TraderRegistrar.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> TraderRegistrar.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.69% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>2/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">8.33% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.67% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>2/30</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity ^0.4.18;
+&nbsp;
+import "./RepublicToken.sol";
+import "./Utils.sol";
+&nbsp;
+contract TraderRegistrar {
+&nbsp;
+  /**
+   * @notice Traders are stored in the registry. The owner is the address that
+   * registered the trader, the bond is the amount of REN that was transferred
+   * during registration, and the public key is the encryption key that should
+   * be used when sending sensitive information to the trader.
+   */
+  struct Trader {
+    address owner;
+    uint256 bond;
+    bytes publicKey;
+    bool registered;
+  }
+&nbsp;
+  // Republic ERC20 token contract used to transfer bonds.
+  RepublicToken ren;
+&nbsp;
+  // Registry data.
+  mapping(bytes20 =&gt; Trader) public traders;
+  uint256 public numberOfTraders;
+&nbsp;
+  // Minimum bond to be considered registered.
+  uint256 public minimumBond;
+&nbsp;
+  // Refunable amounts of REN.
+  mapping(address =&gt; uint256) public pendingRefunds;
+&nbsp;
+  /**
+   * @notice Emitted when a trader is registered.
+   * 
+   * @param _traderID The trader ID that was registered.
+   * @param _bond The amount of REN that was transferred as bond.
+   */
+  event TraderRegistered(bytes20 _traderID, uint256 _bond);
+&nbsp;
+  /**
+   * @notice Emitted when a trader is deregistered.
+   * 
+   * @param _traderID The trader ID that was deregistered.
+   */
+  event TraderDeregistered(bytes20 _traderID);
+&nbsp;
+  /**
+   * @notice Emitted when a refund has been made.
+   *
+   * @param _owner The address that was refunded.
+   * @param _amount The amount of REN that was refunded.
+   */
+  event OwnerRefunded(address _owner, uint256 _amount);
+&nbsp;
+  /**
+   * @notice Only allow the owner that registered the trader to pass.
+   */
+<span class="fstat-no" title="function not covered" >  modifier onlyOwner(bytes20 _traderID) </span>{
+<span class="cstat-no" title="statement not covered" >    if (traders[_traderID].owner == msg.sender) {</span>
+      _;
+    }
+  }
+&nbsp;
+  /**
+   * @notice Only allow unregisterd traders to pass.
+   */
+<span class="fstat-no" title="function not covered" >  modifier onlyUnregistered(bytes20 _traderID) </span>{
+<span class="cstat-no" title="statement not covered" >    if (!traders[_traderID].registered) {</span>
+      _;
+    }
+  }
+&nbsp;
+  /**
+   * @notice Only allow registered traders to pass.
+   */
+<span class="fstat-no" title="function not covered" >  modifier onlyRegistered(bytes20 _traderID) </span>{
+<span class="cstat-no" title="statement not covered" >    if (traders[_traderID].registered) {</span>
+      _;
+    }
+  }
+&nbsp;
+  /** 
+   * @notice The TraderRegistrar constructor.
+   *
+   * @param _renAddress The address of the Republic Token contract.
+   * @param _minimumBond The minimum bond amount that can be submitted by a
+   *                     trader.
+   */
+  function TraderRegistrar(address _renAddress, uint256 _minimumBond) public {
+    ren = RepublicToken(_renAddress);
+    minimumBond = _minimumBond;
+  }
+&nbsp;
+  /** 
+   * @notice Register a trader and transfer the bond to this contract. The
+   * caller must provide the public key of the trader that will be registered.
+   * The bond must be provided in REN as an allowance and the entire allowance
+   * will be used.
+   *
+   * @param _traderID The trader ID that will be registered.
+   * @param _publicKey The public key of the trader. It is stored to allow other
+   *                   miners and traders to encrypt messages to the trader.
+   */
+<span class="fstat-no" title="function not covered" >  function register(bytes20 _traderID, bytes _publicKey) public onlyUnregistered(_traderID) </span>{
+    // REN allowance is used as the bond.
+<span class="cstat-no" title="statement not covered" >    uint256 bond = ren.allowance(msg.sender, this)</span>;
+<span class="cstat-no" title="statement not covered" >    require(bond &gt; minimumBond)</span>;
+&nbsp;
+    // Transfer the bond to this contract.
+<span class="cstat-no" title="statement not covered" >    require(ren.transferFrom(msg.sender, this, bond))</span>;
+&nbsp;
+    // Store this trader in the registry.
+<span class="cstat-no" title="statement not covered" >    traders[_traderID] = Trader({</span>
+      owner: msg.sender,
+      bond: bond,
+      publicKey: _publicKey,
+      registered: true
+    });
+    numberOfTraders++;
+&nbsp;
+    // Emit an event.
+<span class="cstat-no" title="statement not covered" >    TraderRegistered(_traderID, bond)</span>;
+  }
+&nbsp;
+  /** 
+   * @notice Deregister a trader and clear their bond for refunding. Only the
+   * owner of a trader can deregister the trader.
+   *
+   * @param _traderID The ID of the trader that will be deregistered. The
+   *                  caller must be the owner of this trader.
+   */
+<span class="fstat-no" title="function not covered" >  function deregister(bytes20 _traderID) public onlyOwner(_traderID) onlyRegistered(_traderID) </span>{
+    // Setup a refund for the owner.
+<span class="cstat-no" title="statement not covered" >    pendingRefunds[msg.sender] += traders[_traderID].bond</span>;
+&nbsp;
+    // Zero the trader from the registry.
+<span class="cstat-no" title="statement not covered" >    traders[_traderID].owner = 0</span>;
+<span class="cstat-no" title="statement not covered" >    traders[_traderID].bond = 0</span>;
+<span class="cstat-no" title="statement not covered" >    traders[_traderID].publicKey = ""</span>;
+<span class="cstat-no" title="statement not covered" >    traders[_traderID].registered = false</span>;
+&nbsp;
+    // Emit an event.
+<span class="cstat-no" title="statement not covered" >    TraderDeregistered(_traderID)</span>;
+  }
+&nbsp;
+  /** 
+   * @notice Refund all REN that has been cleared for refunding. Bonds are
+   * cleared for refunding when the respective trader is deregistered.
+   */
+<span class="fstat-no" title="function not covered" >  function refund() public </span>{
+    // Ensure that the refund amount is greater than zero.
+<span class="cstat-no" title="statement not covered" >    uint amount = pendingRefunds[msg.sender]</span>;
+<span class="cstat-no" title="statement not covered" >    require(amount &gt; 0)</span>;
+&nbsp;
+    // Refund the owner by transferring REN.
+<span class="cstat-no" title="statement not covered" >    pendingRefunds[msg.sender] = 0</span>;
+<span class="cstat-no" title="statement not covered" >    require(ren.transfer(msg.sender, amount))</span>;
+&nbsp;
+    // Emit an event.
+<span class="cstat-no" title="statement not covered" >    OwnerRefunded(msg.sender, amount)</span>;
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getTrader(bytes20 _traderID) public view returns (Trader) </span>{
+<span class="cstat-no" title="statement not covered" >    return traders[_traderID];</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getNumberOfTraders() public view returns (uint256) </span>{
+<span class="cstat-no" title="statement not covered" >    return numberOfTraders;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getOwner(bytes20 _traderID) public view returns (address) </span>{
+<span class="cstat-no" title="statement not covered" >    return traders[_traderID].owner;</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function getBond(bytes20 _traderID) public view returns (uint256) </span>{
+<span class="cstat-no" title="statement not covered" >    return traders[_traderID].bond;</span>
+  }
+ 
+<span class="fstat-no" title="function not covered" >  function getPublicKey(bytes20 _traderID) public view returns (bytes) </span>{
+<span class="cstat-no" title="statement not covered" >    return traders[_traderID].publicKey;</span>
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Feb 16 2018 14:03:19 GMT+1100 (AEDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
